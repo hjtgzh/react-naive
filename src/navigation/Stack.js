@@ -15,11 +15,12 @@ export default StackNavigator(
     // initialRouteName: 'Home',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#f4511e'
+        backgroundColor: '#2b68c2'
       },
       headerTintColor: '#fff',
       headerTitleStyle: {
-        fontWeight: 'bold'
+        textAlign: 'center',
+        flexGrow: 1
       }
     }
   }

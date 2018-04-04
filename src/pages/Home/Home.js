@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  Alert,
+  TouchableOpacity,
+  StatusBar
+} from 'react-native';
 
 import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import qs from 'qs';
-// import {create} from 'apisauce'
 
 export default class Home extends Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -12,6 +19,7 @@ export default class Home extends Component {
       title: 'Home'
     };
   };
+
   componentDidMount() {
     //get请求测试
     // axios
@@ -22,35 +30,15 @@ export default class Home extends Component {
     //   .catch(function(error) {
     //     console.log(error);
     //   });
-
-    //post请求测试
-    const instance = axios.create({
-      timeout: 6000,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    });
-    instance
-      .post(
-        'http://47.97.217.240:30040/mine/login',
-        qs.stringify({
-          phoneNumber: 17682305203,
-          password: 123
-        })
-      )
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
   }
 
+  // 选择照片
   choosePic = () => {
     ImagePicker.openPicker({
       width: 300,
       height: 400,
-      cropping: true
+      cropping: true,
+      includeBase64: true
     }).then(image => {
       this.fetchImage(image);
     });
@@ -59,60 +47,37 @@ export default class Home extends Component {
   fetchImage = image => {
     // 待定
     const url = 'http://47.97.217.240:30040/mine/uploadPic';
-    // const url = 'http://192.168.1.137:8080/mine/uploadPic';
-    // global.FormData = global.originalFormData;
 
-    // const instance = axios.create({
-    //   timeout: 6000,
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data'
-    //   }
-    // });
-    // let file = {
-    //   uri: image.uri,
-    //   name: 'image',
-    //   type: 'image/jpeg'
-    // };
-    // instance
-    //   .post(
-    //     url,
-    //     qs.stringify({
-    //       file: file,
-    //       userInfoId: 1
-    //     })
-    //   )
-    //   .then(function(response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function(error) {
-    //     console.log(error);
-    //   });
-
-    const formData = new FormData();
-    let file = {
-      uri: image.uri,
-      name: 'image',
-      type: 'image/jpeg'
-    };
-    formData.append('file', file);
-    formData.append('userInfoId', 1);
-    axios
-      .post(url, formData, {
-        method: 'post',
-        headers: { 'Content-Type': 'multipart/formdata' }
+    const instance = axios.create({
+      timeout: 6000,
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    });
+    instance
+      .post(
+        url,
+        qs.stringify({
+          base64File: `data:image/png;base64,${image.data}`,
+          userInfoId: 4
+        })
+      )
+      .then(function(response) {
+        console.log(response);
       })
-      .then(res => {
-        //根据服务器返回进行处理
-        if (res.data.status === 0) {
-          console.log(res);
-        } else {
-          console.log('error');
-        }
-      })
-      .catch(error => {
-        console.log('catch-error');
+      .catch(function(error) {
         console.log(error);
       });
+
+    // let xhr = new XMLHttpRequest();
+    // xhr.open('POST', url);
+    // let formdata = new FormData();
+    // formdata.append('image', {
+    //   ...image,
+    //   name: 'image.jpg',
+    //   type: 'image/jpeg'
+    // });
+    // xhr.send(formdata);
 
     // const formData = new FormData();
     // let file = {
@@ -136,6 +101,7 @@ export default class Home extends Component {
     //     console.log('catch-error');
     //     console.log(response);
     //   });
+
     // axios
     //   .post(url, formData, {
     //     method: 'post',
@@ -157,6 +123,7 @@ export default class Home extends Component {
   render() {
     return (
       <View>
+        <StatusBar barStyle="light-content" backgroundColor="#2b68c2" />
         <Text>首页</Text>
         <Button title="选择图片" onPress={this.choosePic} />
       </View>
