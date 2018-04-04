@@ -4,16 +4,29 @@ import {
   Text,
   View,
   Button,
-  Alert,
   TouchableOpacity,
-  StatusBar
+  StatusBar,
+  ScrollView
 } from 'react-native';
-
 import ImagePicker from 'react-native-image-crop-picker';
-import axios from 'axios';
-import qs from 'qs';
 
+import { px } from '../../config/size';
 import { get, post } from '../../axios';
+const cssStyle = StyleSheet.create({
+  contentTitle: {
+    textAlign: 'center',
+    height: px(100),
+    lineHeight: px(100),
+    backgroundColor: '#fff'
+  },
+  content: {
+    marginTop: px(20),
+    height: px(200),
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff'
+  }
+});
 
 export default class Home extends Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
@@ -132,11 +145,13 @@ export default class Home extends Component {
   };
   render() {
     return (
-      <View>
+      <ScrollView>
         <StatusBar barStyle="light-content" backgroundColor="#2b68c2" />
-        <Text>首页</Text>
-        <Button title="选择图片" onPress={this.choosePic} />
-      </View>
+        <Text style={cssStyle.contentTitle}>首页</Text>
+        <View style={cssStyle.content}>
+          <Button title="选择图片" onPress={this.choosePic} />
+        </View>
+      </ScrollView>
     );
   }
 }

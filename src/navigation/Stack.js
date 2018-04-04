@@ -4,7 +4,9 @@ import { StackNavigator } from 'react-navigation';
 import Tab from './Tab';
 import Home from '../pages/Home/Home';
 import Mine from '../pages/Mine/Mine';
+import Config from '../config';
 
+const Color = Config.Color;
 export default StackNavigator(
   {
     Home: {
@@ -15,9 +17,9 @@ export default StackNavigator(
     // initialRouteName: 'Home',
     navigationOptions: {
       headerStyle: {
-        backgroundColor: '#2b68c2'
+        backgroundColor: Color.navBg
       },
-      headerTintColor: '#fff',
+      headerTintColor: Color.white,
       headerTitleStyle: {
         textAlign: 'center',
         flexGrow: 1
