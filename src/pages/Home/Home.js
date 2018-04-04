@@ -13,6 +13,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import axios from 'axios';
 import qs from 'qs';
 
+import { get, post } from '../../axios';
+
 export default class Home extends Component {
   static navigationOptions = ({ navigation, navigationOptions }) => {
     return {
@@ -30,6 +32,14 @@ export default class Home extends Component {
     //   .catch(function(error) {
     //     console.log(error);
     //   });
+
+    get('http://47.97.217.240:30040/mine/reward', {
+      userInfoId: 1
+    });
+    post('http://47.97.217.240:30040/mine/login', {
+      phoneNumber: 17682305203,
+      password: 123
+    });
   }
 
   // 选择照片
