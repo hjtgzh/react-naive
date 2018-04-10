@@ -6,7 +6,8 @@ import {
   Button,
   TouchableOpacity,
   StatusBar,
-  ScrollView
+  ScrollView,
+  Icon
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 

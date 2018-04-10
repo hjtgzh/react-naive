@@ -4,9 +4,8 @@ import { StackNavigator } from 'react-navigation';
 import Tab from './Tab';
 import Home from '../pages/Home/Home';
 import Mine from '../pages/Mine/Mine';
-import Config from '../config';
+import { Color } from '../config';
 
-const Color = Config.Color;
 export default StackNavigator(
   {
     Home: {
